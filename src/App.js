@@ -1,23 +1,35 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
+import Post from './Post';
 
 function App() {
+
+  const [ arr , setA ] =  useState ( [] )        // Create Variable so that to store API data in array
+
+  useEffect ( () => {
+    
+    // Code to Fetch data
+
+    fetch ( `https://dummyjson.com/posts` ).then ( ( res ) => res.json()
+    ).then ( ( data ) => setA ( data.posts ) )
+
+  } , [] )
+  
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    {             // Create only Post.js File to render and Post.css file for designing
+    
+    arr.map ( ( e ) => {
+     
+          return (
+            <Post title = { e.title }  body = { e.body } />
+          )
+       
+    })
+
+    }
+
     </div>
   );
 }
